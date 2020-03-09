@@ -6,7 +6,7 @@ import { addItem } from  './actions/items';
 class App extends Component {
 
   handleOnClick() {
-    this.props.store.dispatch(addItem());
+    this.props.addItem();
   }
 
   render() {
@@ -26,5 +26,21 @@ const mapStateToProps = (state) => {
     items: state.items
   };
 };
+//Essentially, this function allows for code refactoring and
+//Simplifying any subsequent complexity
+const mapDispatchToProps = dispatch => {
+  return {
+    addItem: () => {
+      dispatch(addItem())
+    }
+  };
+};
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+//The above code shows that mapStateToProps is making state.items available to
+//App.js as this.props.items. 
+
+//Next, the event listener handleOnClick is making sure to dispatch an
+//action to the store
+
